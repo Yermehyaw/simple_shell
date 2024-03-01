@@ -22,15 +22,15 @@ int check_string(char *input_line, char **env)
 		return (68);
 	cpy_str(buf, input_line);
 	temp_buf = strtok(buf, " ");
-	if (temp_buf == NULL) /* Probably a strung without a space delim */
+	if (temp_buf == NULL) /* Probably a string without a space delim */
 		temp_buf = buf;
 	for (i = 0; temp_buf[i] != '\0'; ++i)
 	{
 		if (temp_buf[i] == '/')
 		{
-				/*path_exec(input_line);*/
 			printf("path_exec will be called in the %dth char\n",
 			       i);
+			path_exec(input_line);
 			free(buf);
 			return (0); /*The presence of / indicates a cmd path */
 		}
