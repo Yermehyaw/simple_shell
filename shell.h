@@ -40,7 +40,9 @@ void free_all(char **, ...);
 char *get_dir(char **args, char **temp_env);
 char *read_each_dir(char *, char *);
 void program_path_exec(char *, char **);
-int fork_execve(char *cmd_path, char **args);
-
+int fork_execve(char *cmd_path, char **args, int mod);
+int path_exec(char *);
+/* Debugging */
+void print_arr_str(char **);
 
 #endif /* #ifndef SHELL_H */
