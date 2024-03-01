@@ -27,7 +27,7 @@ int fork_execve(char *cmd_path, char **args, int mod)
 		if (execve(cmd_path, args, NULL) == -1)
 		{
 			perror("Couldnt exec command\n");
-			exit (1);
+			exit(1);
 		}
 	}
 	if (child_pid > 0)
