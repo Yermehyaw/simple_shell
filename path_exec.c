@@ -1,7 +1,5 @@
 #include "shell.h"
 
-void print_arr_str(char **); /* For debugging */
-
 /**
  * path_exec - Will execute a path and its arguments in a string passed to it
  * @buf: A string
