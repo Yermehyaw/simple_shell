@@ -22,20 +22,19 @@ int shell(int ac, char **av, char **env)
 	size_t line_len;
 	int line, wrt, check, found, prg_exit;
 
-	(void)ac;
-	(void)av;
-	(void)wrt;
-	(void)found;
+	(void)ac, (void)av, (void)wrt, (void)found;
 	input_line = NULL; /*cant be NULL if realloc'ed in cust getline*/
+	line_len = 0;
 	while (1)
 	{
 		wrt = write(STDOUT_FILENO, "($)", 4);
 		line = getline(&input_line, &line_len, stdin);
-		/* Handle signal */
-		/* Hamdle EOF: if (line_len == EOF)*/
-		/*exit(0);*/
-		if (line < 0)
-			return (90);
+		signal(SIGINT, SIG_IGN);
+		if ((int)line == -1) /*Test for EOF */
+		{
+			free(input_line); /* or call cmd_exit() ? */
+			exit(0);/*Not sure if to return back or exit to OS*/
+		}
 		/* Pass to cmd_sep() first to check for ';', '$$' etc in str */
 		check = check_string(input_line, env);
 		if (check == 0 || check == 50) /* Special char found */
@@ -55,7 +54,6 @@ int shell(int ac, char **av, char **env)
 			free(input_line);
 			return (93);
 		}
-		/*wrt = write(STDOUT_FILENO, err, len_str(err) + 1);*/
 		free(input_line);
 		return (95);
 	}
